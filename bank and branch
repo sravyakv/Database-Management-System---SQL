@@ -1,0 +1,58 @@
+use csedb1_1bm18cs044;
+create table branch(
+branchname varchar(50),
+branchcity varchar(50),
+assests int,
+PRIMARY KEY(branchname));
+insert into branch values('sbi_chamrajpet','bangalore',50000),('sbi_residencyroad','bangalore',10000),('sbi_shivajiroad','bombay',20000),('sbi_parlimentroad','delhi',10000),('sbi_jantarmantar','delhi',20000);
+select * from branch;
+create table bankaccount(
+accno int,
+branchname varchar(50),
+balance int,
+PRIMARY KEY(accno),
+FOREIGN KEY(branchname) REFERENCES branch(branchname));
+insert into bankaccount values(1,'sbi_chamrajpet',2000),(2,'sbi_residencyroad',5000),(3,'sbi_shivajiroad',6000),(4,'sbi_parlimentroad',9000),(5,'sbi_jantarmantar',8000),(6,'sbi_shivajiroad',4000),(8,'sbi_residencyroad',4000),(9,'sbi_parlimentroad',3000),(10,'sbi_residencyroad',5000),(11,'sbi_jantarmantar',2000);
+select * from bankaccount;
+create table bankcustomer(
+customername varchar(50),
+customerstreet varchar(50),
+customercity varchar(30),
+PRIMARY KEY(customername)
+);
+insert into bankcustomer values ('avinash','bull_temple_road','bangalore'),('dinesh','bannergatta_road','bangalore'),('mohan','nationalcollege_road','bangalore'),('nikil','akbar_road','delhi'),('ravi','prithviraj_road','delhi');
+select * from bankcustomer;
+create table depositer(
+customername varchar(50),
+accno int,
+primary key(accno),
+foreign key(customername) REFERENCES bankcustomer(customername),
+foreign key(accno) REFERENCES bankaccount(accno)
+);
+insert into depositer values('avinash',1),('dinesh',2),('nikil',4),('ravi',5),('avinash',8),('nikil',9),('dinesh',10),('nikil',11);
+select * from depositer;
+create table loan(
+loannumber int,
+branchname varchar(50),
+amount int,
+primary key(loannumber)
+);
+insert into loan values(1,'sbi_chamrajpet',1000),(2,'sbi_residencyroad',2000),(3,'sbi_shivajiroad',3000),(4,'sbi_parlimentroad',4000),(5,'sbi_jantarmantar',5000);
+select * from loan;
+
+
+SET SQL_SAFE_UPDATES = 0;
+use csedb1_1bm18cs044;
+select count(distinct customername)
+from bankcustomer
+where bankcustomer.customercity='delhi';
+select * from branch;
+select * from bankaccount;
+select * from bankcustomer;
+select * from depositer;
+select * from loan;
+delete from bankcustomer
+where bankcustomer.customercity='bombay';
+
+
+
